@@ -1,4 +1,4 @@
-package com.zelianko.weatherapp.ui.theme
+package com.zelianko.weatherapp.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
