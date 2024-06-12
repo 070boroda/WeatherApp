@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.parcelize)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -43,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -75,6 +76,8 @@ dependencies {
 
     implementation(libs.dagger.core)
     ksp(libs.dagger.compiler)
+
+    implementation(libs.icons)
 
     implementation(libs.glide.compose)
 

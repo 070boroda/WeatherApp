@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.Text
 import com.zelianko.weatherapp.data.network.api.ApiFactory
 import com.zelianko.weatherapp.data.network.api.ApiService
 import com.zelianko.weatherapp.presentation.ui.theme.WeatherAppTheme
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WeatherAppTheme {
-
+                Text(text = "Hello")
             }
         }
     }
