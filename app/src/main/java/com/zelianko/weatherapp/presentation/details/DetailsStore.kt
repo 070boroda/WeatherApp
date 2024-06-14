@@ -39,7 +39,6 @@ internal interface DetailsStore : Store<Intent, State, Label> {
     }
 
     sealed interface Label {
-
         data object ClickBack : Label
     }
 }
