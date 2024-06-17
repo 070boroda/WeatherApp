@@ -19,7 +19,7 @@ interface FavoriteStore : Store<Intent, State, Label> {
     sealed interface Intent {
 
         data object ClickSearch : Intent
-        data object ClickToFavourite : Intent
+        data object ClickAddToFavourite : Intent
         data class CityItemClicked(val city: City) : Intent
 
     }
@@ -64,7 +64,7 @@ class FavoriteStoreFactory @Inject constructor(
     fun create(): FavoriteStore =
         object : FavoriteStore, Store<Intent, State, Label> by storeFactory.create(
             name = "FavoriteStore",
-            //Передаем пустую коллекцию т.к. изначально на жкране не чего нет
+            //Передаем пустую коллекцию т.к. изначально на экране не чего нет
             initialState = State(
                 listOf()
             ),
@@ -119,7 +119,7 @@ class FavoriteStoreFactory @Inject constructor(
                 Intent.ClickSearch -> {
                     publish(Label.ClickSearch)
                 }
-                Intent.ClickToFavourite -> {
+                Intent.ClickAddToFavourite -> {
                     publish(Label.ClickToFavourite)
                 }
             }

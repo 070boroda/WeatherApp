@@ -15,8 +15,7 @@ import com.zelianko.weatherapp.presentation.details.DetailsStore.Label
 import com.zelianko.weatherapp.presentation.details.DetailsStore.State
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-internal interface DetailsStore : Store<Intent, State, Label> {
+interface DetailsStore : Store<Intent, State, Label> {
 
     sealed interface Intent {
 
@@ -42,8 +41,7 @@ internal interface DetailsStore : Store<Intent, State, Label> {
         data object ClickBack : Label
     }
 }
-
-internal class DetailsStoreFactory @Inject constructor(
+class DetailsStoreFactory @Inject constructor(
     private val storeFactory: StoreFactory,
     private val getForecastUseCase: GetForecastUseCase,
     private val changeFavouriteStateUseCase: ChangeFavouriteStateUseCase,
