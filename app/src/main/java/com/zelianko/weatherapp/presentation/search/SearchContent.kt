@@ -4,6 +4,6 @@ import androidx.compose.runtime.Composable
 import com.zelianko.weatherapp.presentation.root.RootComponent
 
 @Composable
-fun SearchContent (component: RootComponent) {
+fun SearchContent (component: SearchComponent) {
 
 }
