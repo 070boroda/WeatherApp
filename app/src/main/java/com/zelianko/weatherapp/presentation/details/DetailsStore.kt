@@ -13,6 +13,7 @@ import com.zelianko.weatherapp.domain.usecase.ObserveFavoriteStateUseCase
 import com.zelianko.weatherapp.presentation.details.DetailsStore.Intent
 import com.zelianko.weatherapp.presentation.details.DetailsStore.Label
 import com.zelianko.weatherapp.presentation.details.DetailsStore.State
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 interface DetailsStore : Store<Intent, State, Label> {
@@ -84,7 +85,7 @@ class DetailsStoreFactory @Inject constructor(
 
     private inner class BootstrapperImpl(val city: City) : CoroutineBootstrapper<Action>() {
         override fun invoke() {
-            scope.launch {
+            scope.launch() {
                 observeFavoriteStateUseCase(cityId = city.id).collect {
                     dispatch(Action.FavouriteStatusChange(it))
                 }
@@ -110,7 +111,7 @@ class DetailsStoreFactory @Inject constructor(
                 }
 
                 Intent.ClickFavouriteChangeStatus -> {
-                    scope.launch {
+                    scope.launch(Dispatchers.IO) {
                         val state = getState()
                         if (state.isFavourite) {
                             changeFavouriteStateUseCase.removeFromFavourite(state.city.id)

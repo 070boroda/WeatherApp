@@ -36,4 +36,4 @@ private fun Long.toCalendar() = Calendar.getInstance().apply {
 }
 
 private fun String.correctImageUrl() =
-    "http:${this.replace(oldValue = "64x64", newValue = "128x128")}"
+    "https:${this.replace(oldValue = "64x64", newValue = "128x128")}"

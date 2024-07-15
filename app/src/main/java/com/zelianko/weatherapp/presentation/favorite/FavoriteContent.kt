@@ -132,7 +132,7 @@ private fun CityCard(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
                             .size(56.dp),
-                        model = weatherState.iconUrl.replace("http", "https"),
+                        model = weatherState.iconUrl,
                         contentDescription = "icon weather"
                     )
                     Text(

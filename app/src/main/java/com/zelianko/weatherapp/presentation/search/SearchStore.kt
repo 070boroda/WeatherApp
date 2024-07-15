@@ -11,6 +11,7 @@ import com.zelianko.weatherapp.domain.usecase.SearchCityUseCase
 import com.zelianko.weatherapp.presentation.search.SearchStore.Intent
 import com.zelianko.weatherapp.presentation.search.SearchStore.Label
 import com.zelianko.weatherapp.presentation.search.SearchStore.State
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -107,12 +108,11 @@ class SearchStoreFactory @Inject constructor(
                 is Intent.ClickCity -> {
                     when (openReason) {
                         OpenReason.AddToFavourite -> {
-                            scope.launch {
+                            scope.launch(Dispatchers.IO) {
                                 changeFavouriteStateUseCase.addToFavourite(intent.city)
                                 publish(Label.SaveToFavourite)
                             }
                         }
-
                         OpenReason.RegularSearch -> {
                             publish(Label.OpenForecast(intent.city))
                         }
@@ -121,7 +121,7 @@ class SearchStoreFactory @Inject constructor(
                 }
 
                 Intent.ClickSearch -> {
-                    //Если нескольколько раз коикать и запрос не завершился, сначало отменяется предыдущий запрос и стартует новый
+                    //Если нескольколько раз кликать и запрос не завершился, сначало отменяется предыдущий запрос и стартует новый
                     searchJob?.cancel()
                     searchJob = scope.launch {
                         dispatch(Msg.LoadingSearchResult)

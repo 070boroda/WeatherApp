@@ -2,4 +2,7 @@
     <string name="app_name">Weather App</string>
     <string name="add_favourite_button">Add favourite</string>
     <string name="search">Search</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="nothing_found_matching_your_request">Nothing found matching your request...</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
