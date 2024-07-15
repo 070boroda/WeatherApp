@@ -17,8 +17,8 @@ interface FavouritesCitiesDao {
     fun observeIsFavourite(cityId: Int): Flow<Boolean>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addFavourite(cityDbModel: CityDbModel)
+    suspend fun addFavourite(cityDbModel: CityDbModel)
 
     @Query("DELETE FROM favourite_cities WHERE id = :cityId")
-    fun deleteFromFavourite(cityId: Int)
+    suspend fun deleteFromFavourite(cityId: Int)
 }

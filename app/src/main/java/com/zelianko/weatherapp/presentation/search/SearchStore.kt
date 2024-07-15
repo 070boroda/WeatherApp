@@ -108,7 +108,7 @@ class SearchStoreFactory @Inject constructor(
                 is Intent.ClickCity -> {
                     when (openReason) {
                         OpenReason.AddToFavourite -> {
-                            scope.launch(Dispatchers.IO) {
+                            scope.launch {
                                 changeFavouriteStateUseCase.addToFavourite(intent.city)
                                 publish(Label.SaveToFavourite)
                             }
