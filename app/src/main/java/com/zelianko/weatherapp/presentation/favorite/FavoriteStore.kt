@@ -99,19 +99,17 @@ class FavoriteStoreFactory @Inject constructor(
     private inner class BootstrapperImpl : CoroutineBootstrapper<Action>() {
         override fun invoke() {
             scope.launch {
-
                 getFavouriteCitiesUseCase().collect {
                     dispatch(Action.FavouriteCitiesLoaded(it))
                 }
             }
-
         }
     }
 
     private inner class ExecutorImpl : CoroutineExecutor<Intent, Action, State, Msg, Label>() {
         override fun executeIntent(intent: Intent, getState: () -> State) {
 
-            when(intent){
+            when (intent) {
                 is Intent.CityItemClicked -> {
                     publish(Label.CityItemClicked(intent.city))
                 }
@@ -119,6 +117,7 @@ class FavoriteStoreFactory @Inject constructor(
                 Intent.ClickSearch -> {
                     publish(Label.ClickSearch)
                 }
+
                 Intent.ClickAddToFavourite -> {
                     publish(Label.ClickToFavourite)
                 }
@@ -157,7 +156,7 @@ class FavoriteStoreFactory @Inject constructor(
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
-        override fun State.reduce(msg: Msg): State = when(msg) {
+        override fun State.reduce(msg: Msg): State = when (msg) {
             is Msg.FavouriteCitiesLoaded -> {
                 copy(
                     cityItems = msg.cities.map {
@@ -168,37 +167,42 @@ class FavoriteStoreFactory @Inject constructor(
                     }
                 )
             }
+
             is Msg.WeatherIsLoading -> {
                 copy(
                     cityItems = cityItems.map {
                         if (it.city.id == msg.cityId) {
                             it.copy(weatherState = State.WeatherState.Loading)
-                        } else{
+                        } else {
                             it
                         }
                     }
                 )
             }
+
             is Msg.WeatherLoaded -> {
                 copy(
                     cityItems = cityItems.map {
                         if (it.city.id == msg.cityId) {
-                            it.copy(weatherState = State.WeatherState.Loaded(
-                                msg.tempC,
-                                msg.conditionIconUrl
-                            ))
-                        } else{
+                            it.copy(
+                                weatherState = State.WeatherState.Loaded(
+                                    msg.tempC,
+                                    msg.conditionIconUrl
+                                )
+                            )
+                        } else {
                             it
                         }
                     }
                 )
             }
+
             is Msg.WeatherLoadingError -> {
                 copy(
                     cityItems = cityItems.map {
                         if (it.city.id == msg.cityId) {
                             it.copy(weatherState = State.WeatherState.Error)
-                        } else{
+                        } else {
                             it
                         }
                     }
